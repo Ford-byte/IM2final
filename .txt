@@ -1,0 +1,10 @@
+   $fname = 'deb';
+    $lname = 'deb';
+    $data = array(
+        'id' => $id,
+        'fname' => $fname,
+        'lname' => $lname
+    );
+    $stud -> _updateUser($data);
+    }
+    // header('Location:studentForm.php?success=true');
