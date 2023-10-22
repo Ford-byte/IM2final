@@ -64,3 +64,14 @@
 .studentloginheader{
         text-transform: uppercase;
 }
+.myassignmentbody{
+        background-image: url("cpc.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        height: 100vh;
+}
+.myassignmentform{
+        background-color:  whitesmoke;
+}

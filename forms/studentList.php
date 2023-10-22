@@ -21,19 +21,19 @@ $object = $stud->getStudent();
 
     <section class="table p-5">
         <div class="container border border-secondary studentlistform">
-            <table class="table table-bordered">
+            <table class="table table-striped rounded">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Actions</th>
+                        <th>FIRSTNAME</th>
+                        <th>LASTNAME</th>
+                        <th>ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($object as $data) { ?>
+                    <?php $i=0; foreach ($object as $data) { $i++;?>
                         <tr>
-                            <td><?php echo $data->student_id; ?></td>
+                            <td><?php echo $i ?></td>
                             <td><?php echo $data->fname; ?></td>
                             <td><?php echo $data->lname; ?></td>
                             <td>
@@ -57,19 +57,20 @@ $object = $stud->getStudent();
                                     </div>
                                     <div class="modal-body">
                         <form method="POST">
+                            <input type="hidden" name="student_id" value="<?php echo $data -> student_id;?>">
                             <label for="fname" class="form-label">
                                 FIRST NAME:
                             </label>
-                            <input type="text" class="form-control" id="fname" name="studentFname" required>
+                            <input type="text" class="form-control" id="fname" name="studentFname" value="<?php echo $data -> fname;?>" required>
                             <br>
                             <label for="lname" class="form-label">
                                 LAST NAME:
                             </label>
-                            <input type="text" class="form-control" id="lname" name="studentLname" required> 
+                            <input type="text" class="form-control" id="lname" name="studentLname" value="<?php echo $data -> lname;?>" required> 
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="addStudent" class="btn btn-primary">ADD STUDENT</button>
+                            <button type="submit" name="EditSubmit" class="btn btn-primary">Save Changes</button>
                         </div>
                         </form>
                     </div>

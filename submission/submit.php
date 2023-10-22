@@ -1,32 +1,12 @@
 <?php
     $TeacherLogin = (isset($_POST['TeacherLogin'])) ? TeacherLogin() : "Error!!" ;
     $DeleteStudent = (isset($_POST['DeleteStudent'])) ? DeleteStudent() : "Error!!";
-    $addStudent = (isset($_POST['addStudent'])) ? addStudent() : "Error!!";
-    $EditSubmit = (isset($_POST['EditSubmit'])) ? EditSubmit() : "Error!!";
     $assSubmit = (isset($_POST['AssignmentSubmit'])) ? addAssignmentTask() : "Error!!";
     $deleteAssignment = (isset($_POST['deleteAssignment'])) ? deleteAssign() : "Error!!";
     $EditAssignmentSubmit = (isset($_POST['EditAssignmentSubmit'])) ? EditAssignmentSubmit() : "Error!!";
     $studentLogin = (isset($_POST['studentLogin'])) ? studentLogin() : "Error!!";
     $showAll = (isset($_POST['showAll'])) ? showAll() : "Error!!";
     
-    if(isset($_POST['EditStudent'])){
-        foreach($_POST['EditStudent'] as $student_id => $value){
-            $location = 'editStudent.php?id=' . $student_id;
-            header('Location: ' . $location);        
-        }
-    }
-    if(isset($_POST['EditAssignment'])){
-        foreach($_POST['EditAssignment'] as $id => $value){
-            $location = 'editAssignment.php?id=' . $id;
-            header('Location: ' . $location);        
-        }
-    }
-    if(isset($_POST['ViewAssignment'])){
-        foreach($_POST['ViewAssignment'] as $id => $value){
-            $location = 'viewAssignment.php?id=' . $id;
-            header('Location: ' . $location);        
-        }
-    }
     if(isset($_POST['backTOmyASSIGNMENT'])){
            header("Location:myAssignment.php");        
     }
@@ -38,7 +18,7 @@
        try {
         foreach($user as $col => $data){
             if ($username == $data -> firstname && $password == $data -> pword) {
-                // header('Location:studentList.php?success=true');
+                header('Location:studentList.php?success=true');
             }
         }
        } catch (PDOException $e) {
@@ -50,47 +30,65 @@
         $id = $_POST['deletestudentid'];
             $func -> deleteStudent($id);
     }
-    function addStudent(){
-        $func = new Functions();
-        $object = $func -> getStudent();
 
-        $studentFname = $_POST['studentFname'];
-        $studentLname = $_POST['studentLname'];
-        $i=0;
+    function addStudent() {
+        $func = new Functions();
+        $object = $func->getStudent();
+        $studentFname = $_POST['addstudentFname'];
+        $studentLname = $_POST['addstudentLname'];
+        
         $data = array(
             'fname' => $studentFname,
             'lname' => $studentLname
-        );   
+        );
+        
+        $i = 0;
 
-
-        foreach($object as $id => $value){
-        if($studentFname == $value->fname && $studentLname == $value->lname){
-            $i++;       
+        foreach ($object as $id => $value) {
+            if ($studentFname == $value->fname && $studentLname == $value->lname) {
+                $i++;
+            }
         }
-    }
-        if($studentFname!=null && $studentLname!=null){
-            if($i==0){
-                $func-> insertStudent($data);
-                }
-            }   
-}
+
+        if ($studentFname != null && $studentLname != null) {
+            if ($i == 0) {
+                $func->insertStudent($data);
+                return true;
+            }
+        }
+        return false;
+    };
+    
+    
+    
     function EditSubmit(){
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $id = $_POST['student_id'];
+        $func = new Functions();
+        $object = $func->getStudent();
 
-    if($fname!=null && $lname!=null){
-    $data = array(
-        'id'=> $id,
-        'fname' => $fname,
-        'lname' => $lname
-    );
+        $fname = $_POST['studentFname'];
+        $lname = $_POST['studentLname'];
+        $id = $_POST['student_id'];
+        $i=0;
 
-    $insert = new Functions();
+        $data = array(
+            'id'=> $id,
+            'fname' => $fname,
+            'lname' => $lname
+        );
 
-    $insert-> updateStudent($data);
-    // header("Location:studentList.php?success=true");
-}
+        foreach ($object as $id => $value) {
+            if ($fname == $value->fname && $lname == $value->lname) {
+                $i++;
+            }
+        }
+
+        if ($fname != null && $lname != null) {
+            if ($i == 0) {
+                $func-> updateStudent($data);
+                return 1;
+            }
+        }
+        return 0;
 }
     function addAssignmentTask(){
         $func = new Functions();

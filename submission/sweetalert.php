@@ -1,4 +1,5 @@
 <?php
+require_once('submit.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['TeacherLogin'])) {
     $loginSuccessful = true;
     if ($loginSuccessful) {
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['DeleteStudent'])) {
         echo "<script>
             Swal.fire({
                 title: 'User Deleted',
-                icon: 'warning',
+                icon: 'success',
                 showCancelButton: false,
                 showConfirmButton: true,
                 timer: 2000 
@@ -44,8 +45,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['AssignmentSubmit'])) {
                 timer: 2000 
             });
         </script>";
-    } else {
+    }
+};
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addStudent'])) {
+    $success = addStudent();
+    if ($success) {
+        echo "<script>
+        Swal.fire({
+            title: 'Successfully!',
+            icon: 'success',
+            showCancelButton: false,
+            showConfirmButton: true,
+        });
+    </script>";
+    }else {
+        echo "<script>
+            Swal.fire({
+                title: 'Error!',
+                text: 'Student already exists.',
+                icon: 'error',
+                showCancelButton: false,
+                showConfirmButton: true,
+            });
+        </script>";
+    }
+};
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['EditSubmit'])) {
+    $success = EditSubmit();
+    if ($success) {
+        echo "<script>
+        Swal.fire({
+            title: 'Successfully!',
+            icon: 'success',
+            showCancelButton: false,
+            showConfirmButton: true,
+        });
+    </script>";
+    }else {
+        echo "<script>
+            Swal.fire({
+                title: 'Error!',
+                text: 'Student already exists or required fields are empty.',
+                icon: 'error',
+                showCancelButton: false,
+                showConfirmButton: true,
+            });
+        </script>";
     }
 };
 ?>
+                        

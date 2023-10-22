@@ -3,16 +3,12 @@ require_once('formHead.php');
 $stud = new Functions();
 $ass = $stud->getAllAssignment();
 ?>
-<section>
-    <form action="showAllAssignment.php" method="post">
-        <input type="submit" name="showAll" class="btn btn-primary m-4" value="SHOW ALL ASSIGNMENT">
-    </form>
-</section>
-<section>
-    <div class="form">
+<div class="myassignmentbody">
+<section class="p-5">
+    <div class="form ">
         <div class="container">
-            <table class="table table-bordered table-striped">
-                <thead>
+            <table class="table table-striped">
+                <thead class="myassignmentform">
                     <tr>
                         <th class="text-center">NO:</th>
                         <th class="text-center">ASSIGNMENT NAME</th>
@@ -20,7 +16,7 @@ $ass = $stud->getAllAssignment();
                         <th class="text-center">ACTION</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="myassignmentform">
                     <?php
                     $i = 0;
                     foreach ($ass as $id => $data) {
@@ -28,8 +24,8 @@ $ass = $stud->getAllAssignment();
                     ?>
                     <tr>
                         <td class="text-center"><?php echo $i; ?></td>
-                        <td><?php echo $data->assignment_name; ?></td>
-                        <td><?php echo $data->subject; ?></td>
+                        <td class="text-center"><?php echo $data->assignment_name; ?></td>
+                        <td class="text-center"><?php echo $data->subject; ?></td>
                         <td class="text-center">
                             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ViewAssignment<?php echo $data->id; ?>">
                                 VIEW
@@ -58,8 +54,8 @@ $ass = $stud->getAllAssignment();
                                             <p class="form-control"><?php print_r($data->subject) ?></p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="description">DESCRIPTION:</label>
-                                            <textarea class="form-control" name="description" rows="5"><?php print_r($data->description) ?></textarea>
+                                            <label for="description">INSTRUCTION:</label>
+                                            <p class="form-control" name="description" rows="5"><?php print_r($data->description) ?></p>
                                         </div>
                                 </div>
                                 <div class="modal-footer">
@@ -76,5 +72,5 @@ $ass = $stud->getAllAssignment();
         </div>
     </div>
 </section>
-
+</div>
 <?php require_once('formFoot.php'); ?>
